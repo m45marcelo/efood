@@ -10,11 +10,13 @@ import facebookImage from "./../../../assets/images/facebook.png";
 import twitterImage from "./../../../assets/images/twitter.png";
 import { CustomText } from "../../common/Text/CustomText.styles";
 import theme from "../../../styles/theme";
+
 export const Footer = () => {
     return (
         <FooterContainer>
             <FooterContainerItems>
                 <Logo />
+
                 <FooterIconsContainer>
                     <FooterIcon src={instagramImage} alt="Imagem instagram" />
                     <FooterIcon src={facebookImage} alt="Imagem facebook" />
@@ -25,7 +27,7 @@ export const Footer = () => {
                     fontColor={theme.colors.primary}
                     fontSize="0.625rem"
                     fontStyle="Regular"
-                    fontWeight="400" 
+                    fontWeight="400"
                     textAlign="center"
                 >
                     A efood é uma plataforma para divulgação de

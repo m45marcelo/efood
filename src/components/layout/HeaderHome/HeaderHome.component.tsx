@@ -1,14 +1,20 @@
-import { Logo } from "../../common/Logo.component"
-import { HeaderHomeContainer, HeaderHomeContainerItems, HeaderHomeText } from "./HeaderHome.styles"
-
+import { Logo } from "../../common/Logo.component";
+import {
+    HeaderHomeContainer,
+    HeaderHomeContainerItems,
+    HeaderHomeText,
+} from "./HeaderHome.styles";
 
 export const HeaderHome = () => {
-    return(
+    return (
         <HeaderHomeContainer>
             <HeaderHomeContainerItems>
-                <Logo/>
-                <HeaderHomeText>Viva experiências gastronômicas no conforto da sua casa</HeaderHomeText>
+                <Logo />
+
+                <HeaderHomeText>
+                    Viva experiências gastronômicas no conforto da sua casa
+                </HeaderHomeText>
             </HeaderHomeContainerItems>
         </HeaderHomeContainer>
-    )
-}
+    );
+};
