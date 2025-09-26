@@ -7,7 +7,13 @@ export const CardPerfilContainer = styled.div`
     height: 21.125rem;
     gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 20rem;
     padding: 0.5rem 0.5rem;
     background-color: ${theme.colors.primary};
 `
+export const CardPerfilImage = styled.img`
+    height: 10.4375rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+`;

@@ -1,14 +1,21 @@
-import { CardPerfilContainer } from "./CardPerfil.styles";
-import image from "./../../../assets/images/image-prato.png";
+import { CardPerfilContainer, CardPerfilImage } from "./CardPerfil.styles";
+
 import { CustomTitle } from "../Text/CustomTitle.styles";
 import theme from "../../../styles/theme";
-
 import { CustomText } from "../Text/CustomText.styles";
 import { CustomButton } from "../CustomButton.styles";
-export const CardPerfil = () => {
+import type React from "react";
+import type { Prato } from "../../../types";
+
+interface CardPerfilProps {
+    onAddToCart: (dishe: Prato)=> void;
+    dishe: Prato;
+}
+
+export const CardPerfil: React.FC<CardPerfilProps> = ({onAddToCart, dishe}) => {
     return (
         <CardPerfilContainer>
-            <img src={image} alt="Imagem rastaurante" />
+            <CardPerfilImage src={dishe.foto} alt="Imagem rastaurante" />
 
             <CustomTitle
                 fontSize="1rem"
@@ -16,20 +23,29 @@ export const CardPerfil = () => {
                 fontStyle="Black"
                 fontColor={theme.colors.text.secundary}
             >
-                Pizza Marguerita
+                {dishe.nome}
             </CustomTitle>
             <CustomText
+                textHeight="5.5rem"
                 fontSize="0.875rem"
                 fontWeight="400"
                 fontStyle="Regular"
                 fontColor={theme.colors.text.secundary}
                 lineHeight="1.375rem"
             >
-                A clássica Marguerita: molho de tomate suculento, mussarela
-                derretida, manjericão fresco e um toque de azeite. Sabor e
-                simplicidade!
+                {dishe.descricao}
             </CustomText>
-            <CustomButton fontSize="14px" fontColor={theme.colors.primary} widthButton="100%" paddingButton="5px 0px" fontWeight="700" fontStyle="Bold" backgroundColor={theme.colors.secundary} hoverColor={theme.colors.secundaryHover}>
+            <CustomButton
+                fontSize="14px"
+                fontColor={theme.colors.primary}
+                widthButton="100%"
+                paddingButton="5px 0px"
+                fontWeight="700"
+                fontStyle="Bold"
+                backgroundColor={theme.colors.secundary}
+                hoverColor={theme.colors.secundaryHover}
+                onClick={()=> onAddToCart(dishe)}
+            >
                 Adicionar ao carrinho
             </CustomButton>
         </CardPerfilContainer>

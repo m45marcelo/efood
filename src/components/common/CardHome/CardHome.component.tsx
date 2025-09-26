@@ -15,15 +15,16 @@ import {
 } from "./CardHome.styles";
 
 interface CardHomeProps {
+    id: number;
     image: string;
     category: string;
     title: string;
-    classification: string;
+    classification: number;
     description: string;
     isHighlighted: boolean;
 }
 
-export const CardHome: React.FC<CardHomeProps> = ({image, category, title, classification, description, isHighlighted}) => {
+export const CardHome: React.FC<CardHomeProps> = ({id ,image, category, title, classification, description, isHighlighted}) => {
     return (
         <CardHomeContainer>
             <CardHomeImage
@@ -65,6 +66,7 @@ export const CardHome: React.FC<CardHomeProps> = ({image, category, title, class
                 </CardInfoHeader>
 
                 <CustomText
+                    textHeight="5.5rem"
                     fontSize="0.875rem"
                     fontWeight="400"
                     fontStyle="Regular"
@@ -74,7 +76,7 @@ export const CardHome: React.FC<CardHomeProps> = ({image, category, title, class
                     {description}
                 </CustomText>
 
-                <Link to={"/perfil"}>
+                <Link to={`/perfil/${id}`}>
                     <CustomButton
                         widthButton="5.125rem"
                         paddingButton="0.25rem 0.375rem"

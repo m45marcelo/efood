@@ -9,17 +9,18 @@ interface CardInfoContainerProps {
 }
 
 export const CardHomeContainer = styled.div`
-    display: grid;
+    display: flex;
+    flex-direction: column;
     height: 24.875rem;
-    width: 100%;
-    max-width: 29.5rem;
+    width: calc(50% - 40px);
     position: relative;
-    margin-bottom: 3rem;
 `;
 
 export const CardHomeImage = styled.img`
     height: 13.5625rem;
     width: 100%;
+    object-fit: cover;
+    object-position: center;
 `;
 
 export const ImageInfoContainer = styled.div`
