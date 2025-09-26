@@ -29,6 +29,7 @@ export const Footer = () => {
                     fontStyle="Regular"
                     fontWeight="400"
                     textAlign="center"
+                    textHeight="1.5rem"
                 >
                     A efood é uma plataforma para divulgação de
                     estabelecimentos, a responsabilidade pela entrega, qualidade
