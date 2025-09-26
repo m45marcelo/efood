@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import theme from "./theme";
 
 const GlobalStyled = createGlobalStyle`
     *{
@@ -11,12 +10,9 @@ const GlobalStyled = createGlobalStyle`
         text-decoration: none;
     }
 
-    body {
-    background-color: ${theme.colors.background};
-    width: 100%;    
-    min-height: 100vh;
+    body{
+        overflow-y: hidden;
     }
-
 `;
 
 export default GlobalStyled;

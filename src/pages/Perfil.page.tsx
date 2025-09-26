@@ -7,25 +7,36 @@ import { Main } from "../components/layout/Main/Main.component";
 import { getPageNumber } from "../utils/getPageNumber";
 import { useEffect, useState } from "react";
 import { type Prato, type Restaurant } from "../types";
-import { Modal } from "../components/common/Modal/Modal.component";
+import { CenterModal } from "../components/common/Modal/CenterModal.component";
+import { RightModal } from "../components/common/Modal/RightModal.component";
+import { Container } from "../components/layout/Container/Container.component";
 
 export const Perfil = () => {
     const { pathname } = useLocation();
     const pageNumber = Number(getPageNumber(pathname));
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [selectDishe, setSelectDishe] = useState<Prato | null>(null);
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalCenterState, setModalCenterState] = useState<boolean>(false);
+    const [modalRightState, setModalRightState] = useState<boolean>(false);
     const restaurantMatch: Restaurant | undefined = restaurants.find(
         (restaurant) => restaurant.id == pageNumber
     );
 
-    function handleAddToCart(dishe: Prato){
+    function handleAddToCart(dishe: Prato) {
         setSelectDishe(dishe);
-        setModalOpen(true);
+        setModalCenterState(true);
     }
 
-    function handleCloseModal(){
-        setModalOpen(false);
+    function handleCloseModalCenter() {
+        setModalCenterState(false);
+    }
+
+    function handleOpenModalRight() {
+        setModalRightState(true);
+    }
+
+    function handleCloseModalRight() {
+        setModalRightState(false);
     }
 
     async function buscarDados() {
@@ -45,8 +56,8 @@ export const Perfil = () => {
     }, []);
 
     return (
-        <>
-            <Header />
+        <Container overflow={modalRightState}>
+            <Header openModal={handleOpenModalRight} />
             {restaurantMatch && (
                 <Hero
                     category={restaurantMatch.tipo}
@@ -54,19 +65,37 @@ export const Perfil = () => {
                 />
             )}
 
-            <Main gap="32px">
+            <Main gap="2rem">
                 {restaurantMatch &&
                     restaurantMatch.cardapio.map((dishe) => (
-                        <>
                             <CardPerfil
+                                key={dishe.id}
                                 dishe={dishe}
                                 onAddToCart={handleAddToCart}
                             />
-                        </>
                     ))}
-                    <Modal closeModal={handleCloseModal} dishe={selectDishe} isOpen={modalOpen}/>
+                <CenterModal
+                    closeModal={handleCloseModalCenter}
+                    dishe={selectDishe}
+                    isOpen={modalCenterState}
+                    displayModal="flex"
+                    maxWidth="64rem"
+                    justifyContent="center"
+                    heightModal="21.5rem"
+                    paddingModal="2rem 2rem"
+                />
+                <RightModal
+                    closeModal={handleCloseModalRight}
+                    dishe={selectDishe}
+                    isOpen={modalRightState}
+                    displayModal="grid"
+                    maxWidth="360px"
+                    justifyContent="right"
+                    heightModal="100%"
+                    paddingModal="2rem 0.5rem 0rem 0.5rem"
+                />
             </Main>
             <Footer />
-        </>
+        </Container>
     );
 };

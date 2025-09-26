@@ -2,11 +2,20 @@ import styled from "styled-components";
 import theme from "../../../styles/theme";
 
 interface ModalBackgroundProps {
-    displayModal: boolean;
+    isOpen: boolean;
+    justifyContent: "center" | "right";
+}
+
+interface ModalContainerProps {
+    maxWidth: string;
+    heightModal: string;
+    paddingModal: string;
+    displayModal: string;
 }
 
 export const ModalBackground = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== "displayModal"
+    shouldForwardProp: (prop) =>
+        prop !== "isOpen" && prop !== "justifyContent",
 })<ModalBackgroundProps>`
     position: fixed;
     top: 0;
@@ -14,8 +23,8 @@ export const ModalBackground = styled.div.withConfig({
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
-    display: ${({displayModal}) => displayModal ? "flex" : "none"};
-    justify-content: center;
+    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    justify-content: ${({ justifyContent }) => justifyContent};
     align-items: center;
     z-index: 1000;
 `;
@@ -26,17 +35,23 @@ export const ItemClose = styled.img`
     right: 0.5rem;
     height: 1rem;
     cursor: pointer;
-`
+`;
 
-export const ModalContainer = styled.div`
+export const ModalContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) =>
+        prop !== "maxWidth" &&
+        prop !== "heightModal" &&
+        prop !== "paddingModal" && 
+        prop !== "displayModal"
+})<ModalContainerProps>`
     position: relative;
     width: 100%;
-    max-width: 64rem;
-    height: 21.5rem;
-    padding: 2rem 2rem;
-    display: flex;
+    max-width: ${({maxWidth}) => maxWidth};
+    height: ${({heightModal}) => heightModal};
+    padding: ${({paddingModal}) => paddingModal};
+    display: ${({displayModal}) => displayModal};
     background-color: ${theme.colors.primary};
-`
+`;
 export const ModalImage = styled.img`
     height: 100%;
     width: 100%;
@@ -44,11 +59,18 @@ export const ModalImage = styled.img`
     object-fit: cover;
     object-position: center;
     margin-right: 1.5rem;
-`
+`;
 
 export const ModalInfoContainer = styled.div`
     height: 16rem;
     display: flex;
     flex-direction: column;
     gap: 16px;
+`;
+
+export const InfoItensContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 21.5rem;
 `

@@ -4,6 +4,7 @@ import { Main } from "../components/layout/Main/Main.component";
 import { CardHome } from "../components/common/CardHome/CardHome.component";
 import { useEffect, useState } from "react";
 import type { Restaurant } from "../types";
+import { Container } from "../components/layout/Container/Container.component";
 
 export const Home = () => {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -22,7 +23,7 @@ export const Home = () => {
     },[])
 
     return (
-        <>
+        <Container overflow={false}>
             <HeaderHome />
             <Main gap="48px 80px">
                 {
@@ -41,6 +42,6 @@ export const Home = () => {
                 }
             </Main>
             <Footer />
-        </>
+        </Container>
     );
 };

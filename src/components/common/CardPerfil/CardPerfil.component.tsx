@@ -36,10 +36,10 @@ export const CardPerfil: React.FC<CardPerfilProps> = ({onAddToCart, dishe}) => {
                 {dishe.descricao}
             </CustomText>
             <CustomButton
-                fontSize="14px"
+                fontSize="0.875rem"
                 fontColor={theme.colors.primary}
                 widthButton="100%"
-                paddingButton="5px 0px"
+                paddingButton="0.3125rem 0rem"
                 fontWeight="700"
                 fontStyle="Bold"
                 backgroundColor={theme.colors.secundary}

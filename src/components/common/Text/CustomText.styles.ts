@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface CustomTextProps {
     textHeight: string;
@@ -9,6 +9,7 @@ interface CustomTextProps {
     widthText?: string;
     textAlign?: string;
     lineHeight?: string;
+    isLink?: boolean;
 }
 
 export const CustomText = styled.p.withConfig({
@@ -20,20 +21,26 @@ export const CustomText = styled.p.withConfig({
         prop !== "fontColor" &&
         prop !== "widthText" &&
         prop !== "textAlign" &&
-        prop !== "lineHeight"
+        prop !== "lineHeight" &&
+        prop !== "isLink",
 })<CustomTextProps>`
-    height: ${({textHeight}) => textHeight};
-    text-align: ${({textAlign}) => textAlign ? textAlign : "left"};
-    width: ${({widthText}) => widthText ? widthText : "100%"};
+    height: ${({ textHeight }) => textHeight};
+    text-align: ${({ textAlign }) => (textAlign ? textAlign : "left")};
+    width: ${({ widthText }) => (widthText ? widthText : "100%")};
     font-weight: ${({ fontWeight }) => fontWeight};
     font-style: ${({ fontStyle }) => fontStyle};
     font-size: ${({ fontSize }) => fontSize};
     color: ${({ fontColor }) => fontColor};
-    line-height: ${({lineHeight}) => lineHeight ? lineHeight : "100%"};
+    line-height: ${({ lineHeight }) => (lineHeight ? lineHeight : "100%")};
+    ${({ isLink }) =>
+        isLink &&
+        css`
+            cursor: pointer;
+        `}
     letter-spacing: 0%;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; 
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 `;
