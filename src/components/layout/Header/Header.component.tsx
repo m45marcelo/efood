@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({openModal}) => {
-    const quantityItens = useAppSelector((state) => state.dishe)
+    const quantityItens = useAppSelector((state) => state.carrinho.dishe)
     return (
         <HeaderContainer>
             <HeaderContent>

@@ -23,7 +23,7 @@ interface RightModalProps {
 }
 
 export const RightModal: React.FC<RightModalProps> = ({ ...props }) => {
-    const dishes = useAppSelector((state) => state.dishe);
+    const dishes = useAppSelector((state) => state.carrinho.dishe);
 
     const totalValue = useMemo(
         () => dishes.reduce((acc, dishe) => acc + dishe.preco, 0),
@@ -52,9 +52,10 @@ export const RightModal: React.FC<RightModalProps> = ({ ...props }) => {
                     ))}
                 </CardCartWarapper>
             ) : (
-                <CustomText
+                <CardCartWarapper cardQuantity={dishes.length}>
+                    <CustomText
                     widthText="100%"
-                    textHeight="20.75rem"
+                    textHeight="1rem"
                     fontWeight="700"
                     fontStyle="Bold"
                     fontSize="0.875rem"
@@ -63,6 +64,7 @@ export const RightModal: React.FC<RightModalProps> = ({ ...props }) => {
                 >
                     Carrinho Vazio
                 </CustomText>
+                </CardCartWarapper>
             )}
             <ModalInfoContainer>
                 <InfoItensContainer>
@@ -77,8 +79,8 @@ export const RightModal: React.FC<RightModalProps> = ({ ...props }) => {
                         Valor total
                     </CustomText>
                     <CustomText
-                        widthText="4.375rem"
-                        textHeight="16px"
+                        widthText="auto"
+                        textHeight="1rem"
                         fontWeight="700"
                         fontStyle="Bold"
                         fontSize="0.875rem"

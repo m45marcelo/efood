@@ -2,43 +2,34 @@ import { Footer } from "../components/layout/Footer/Footer.component";
 import { HeaderHome } from "../components/layout/HeaderHome/HeaderHome.component";
 import { Main } from "../components/layout/Main/Main.component";
 import { CardHome } from "../components/common/CardHome/CardHome.component";
-import { useEffect, useState } from "react";
-import type { Restaurant } from "../types";
 import { Container } from "../components/layout/Container/Container.component";
+import { Loader } from "../components/common/Loader/Loader.component";
+import { useGetRestaurantsQuery } from "../store/api/restaurantsApi";
 
 export const Home = () => {
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
-    async function buscarDados(){
-        try {
-            const response = await fetch("https://ebac-fake-api.vercel.app/api/efood/restaurantes");
-            const data: Restaurant[] = await response.json();
-            setRestaurants(data)
-        } catch (error) {
-            console.error("Erro", error)
-        }
-    }
-    useEffect(() => {
-        buscarDados();
-    },[])
+    const { data: restaurants, isLoading} = useGetRestaurantsQuery();
 
     return (
         <Container overflow={false}>
             <HeaderHome />
-            <Main gap="48px 80px">
+            <Main gap="3rem 5rem">
                 {
-                    restaurants && restaurants.map((restaurant) => (
-                        <CardHome 
-                        key={restaurant.id}
-                        id={restaurant.id}
-                        image={restaurant.capa}
-                        category={restaurant.tipo}
-                        title={restaurant.titulo}
-                        classification={restaurant.avaliacao}
-                        description={restaurant.descricao}
-                        isHighlighted={restaurant.destacado}
-                        />
-                    ))
+                    isLoading ? (
+                        <Loader/>
+                    ):(
+                        restaurants && restaurants.map((restaurant) => (
+                            <CardHome 
+                            key={restaurant.id}
+                            id={restaurant.id}
+                            image={restaurant.capa}
+                            category={restaurant.tipo}
+                            title={restaurant.titulo}
+                            classification={restaurant.avaliacao}
+                            description={restaurant.descricao}
+                            isHighlighted={restaurant.destacado}
+                            />
+                        ))
+                    )
                 }
             </Main>
             <Footer />

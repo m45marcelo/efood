@@ -8,11 +8,24 @@ interface CardCartWarapperProps {
 export const CardCartWarapper = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== "cardQuantity"
 })<CardCartWarapperProps>`
-    height: 20.75rem;
+    height: 332px;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 2.5rem;
-    gap: 1rem;
+    ${({cardQuantity}) => 
+        !cardQuantity  && 
+        css`
+            justify-content:center;
+            align-items: center;
+        `
+    };
+
+    ${({cardQuantity}) => 
+    cardQuantity > 0 &&
+    css`
+        flex-direction: column;
+        gap: 1rem;
+    `
+    };
+    
     ${({cardQuantity}) => 
     cardQuantity > 3 &&
     css`

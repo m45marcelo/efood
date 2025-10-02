@@ -5,20 +5,25 @@ import { Header } from "../components/layout/Header/Header.component";
 import { Hero } from "../components/layout/Hero/Hero.component";
 import { Main } from "../components/layout/Main/Main.component";
 import { getPageNumber } from "../utils/getPageNumber";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type Prato, type Restaurant } from "../types";
 import { CenterModal } from "../components/common/Modal/CenterModal.component";
 import { RightModal } from "../components/common/Modal/RightModal.component";
 import { Container } from "../components/layout/Container/Container.component";
+import { Loader } from "../components/common/Loader/Loader.component";
+import { useGetRestaurantsQuery } from "../store/api/restaurantsApi";
 
 export const Perfil = () => {
     const { pathname } = useLocation();
     const pageNumber = Number(getPageNumber(pathname));
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    
     const [selectDishe, setSelectDishe] = useState<Prato | null>(null);
     const [modalCenterState, setModalCenterState] = useState<boolean>(false);
     const [modalRightState, setModalRightState] = useState<boolean>(false);
-    const restaurantMatch: Restaurant | undefined = restaurants.find(
+
+    const { data: restaurants, isLoading } = useGetRestaurantsQuery()
+   
+    const restaurantMatch: Restaurant | undefined = restaurants?.find(
         (restaurant) => restaurant.id == pageNumber
     );
 
@@ -39,22 +44,6 @@ export const Perfil = () => {
         setModalRightState(false);
     }
 
-    async function buscarDados() {
-        try {
-            const response = await fetch(
-                "https://ebac-fake-api.vercel.app/api/efood/restaurantes"
-            );
-            const data: Restaurant[] = await response.json();
-            setRestaurants(data);
-        } catch (error) {
-            console.error("Erro", error);
-        }
-    }
-
-    useEffect(() => {
-        buscarDados();
-    }, []);
-
     return (
         <Container overflow={modalRightState}>
             <Header openModal={handleOpenModalRight} />
@@ -66,14 +55,18 @@ export const Perfil = () => {
             )}
 
             <Main gap="2rem">
-                {restaurantMatch &&
+                {isLoading ? (
+                    <Loader/>
+                ): (
+                    restaurantMatch &&
                     restaurantMatch.cardapio.map((dishe) => (
-                            <CardPerfil
-                                key={dishe.id}
-                                dishe={dishe}
-                                onAddToCart={handleAddToCart}
-                            />
-                    ))}
+                        <CardPerfil
+                            key={dishe.id}
+                            dishe={dishe}
+                            onAddToCart={handleAddToCart}
+                        />
+                    ))
+                )}
                 <CenterModal
                     closeModal={handleCloseModalCenter}
                     dishe={selectDishe}

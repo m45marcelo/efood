@@ -62,7 +62,7 @@ export const ModalImage = styled.img`
 `;
 
 export const ModalInfoContainer = styled.div`
-    height: 16rem;
+    height: 256px;
     display: flex;
     flex-direction: column;
     gap: 16px;
